@@ -7,4 +7,8 @@ public class GameConfig {
     public static final int PLAYER_WIDTH = 16;
     public static final int PLAYER_HEIGHT = 16;
 
+    public static final int OBJECT_SPEED = 4;
+    public static final int OBJECT_WIDTH = 15;
+    public static final int OBJECT_HEIGHT = 15;
+
 }

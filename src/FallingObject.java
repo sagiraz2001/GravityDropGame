@@ -10,7 +10,7 @@ public class FallingObject {
     private int currentY;
     private boolean isGoodObject;
     private int width;
-    private int hight;
+    private int height;
     private int speed;
     private Image myImage;
 
@@ -20,7 +20,7 @@ public class FallingObject {
         this.currentY = 0;
         this.isGoodObject = random.nextBoolean();
         this.width = GameConfig.OBJECT_WIDTH;
-        this.hight = GameConfig.OBJECT_HEIGHT;
+        this.height = GameConfig.OBJECT_HEIGHT;
         this.speed = GameConfig.OBJECT_SPEED;
 
         int imageNumber = random.nextInt(1, 5);
@@ -48,7 +48,7 @@ public class FallingObject {
 
     public void draw (Graphics graphics){
         if (this.myImage != null) {
-            graphics.drawImage(this.myImage, this.currentX, this.currentY, this.width, this.hight, null);
+            graphics.drawImage(this.myImage, this.currentX, this.currentY, this.width, this.height, null);
         }
     }
 

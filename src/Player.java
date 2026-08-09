@@ -8,4 +8,6 @@ public class Player {
     private int height;
     private int speed;
     private BufferedImage image;
+
+
 }

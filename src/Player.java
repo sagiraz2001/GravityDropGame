@@ -16,7 +16,7 @@ public class Player {
     public Player(int locationX, int locationY) {
         this.locationX = locationX;
         this.locationY = locationY;
-        this.width = GameConfig.PLAYER_WIDTH; // בהתאם לגודל התמונה שתוריד (למשל 32 פיקסלים)
+        this.width = GameConfig.PLAYER_WIDTH;
         this.height = GameConfig.PLAYER_HEIGHT;
         this.lives = 3;
         this.score = 0;

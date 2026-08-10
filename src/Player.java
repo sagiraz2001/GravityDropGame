@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 public class Player {
 
@@ -12,10 +13,14 @@ public class Player {
     private BufferedImage image;
     private int lives;
     private int score;
+    private boolean rightPressed;
+    private boolean leftPressed;
 
-    public Player(int locationX, int locationY) {
-        this.locationX = locationX;
-        this.locationY = locationY;
+
+    public Player() {
+        Random random = new Random();
+        this.locationX = random.nextInt(GameConfig.SCREEN_WIDTH - GameConfig.PLAYER_WIDTH);
+        this.locationY = GameConfig.PLAYER_DEFAULT_POSITION;
         this.width = GameConfig.PLAYER_WIDTH;
         this.height = GameConfig.PLAYER_HEIGHT;
         this.lives = 3;
@@ -25,18 +30,6 @@ public class Player {
         } catch (IOException e) {
             System.out.println("Error while try to loading player image!");
             e.printStackTrace();
-        }
-    }
-
-    public void moveRight() {
-        if (locationX + width < GameConfig.SCREEN_WIDTH) {
-            locationX += GameConfig.PLAYER_SPEED;
-        }
-    }
-
-    public void moveLeft() {
-        if (locationX > 0) {
-            locationX -= GameConfig.PLAYER_SPEED;
         }
     }
 
@@ -69,5 +62,21 @@ public class Player {
     public boolean isDead() {
         return this.lives <= 0;
     }
-}
 
+    public void setRightPressed(boolean pressed) {
+        this.rightPressed = pressed;
+    }
+
+    public void setLeftPressed(boolean pressed) {
+        this.leftPressed = pressed;
+    }
+
+    public void updatePlayerLocation() {
+        if (this.rightPressed && this.width < GameConfig.SCREEN_WIDTH) {
+            this.locationX += GameConfig.PLAYER_SPEED;
+        }
+        if (this.leftPressed && this.width > 0) {
+            this.locationX -= GameConfig.PLAYER_SPEED;
+        }
+    }
+}

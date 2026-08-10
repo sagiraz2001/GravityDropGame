@@ -40,7 +40,7 @@ public class Player {
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(locationX, locationY, GameConfig.PLAYER_WIDTH, GameConfig.PLAYER_HEIGHT);
+        return new Rectangle(this.locationX, this.locationY, GameConfig.PLAYER_WIDTH, GameConfig.PLAYER_HEIGHT);
     }
 
     public int getLives() {

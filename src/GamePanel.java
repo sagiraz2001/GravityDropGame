@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements KeyListener {
     private Player player;
-    private ArrayList<Object> objects;
+    private ArrayList<FallingObject> objects;
     private boolean isRunning;
 
 
@@ -31,11 +31,28 @@ public class GamePanel extends JPanel implements KeyListener {
         if (this.player != null) {
             this.player.draw(graphics);
         }
+        for (FallingObject object : this.objects) {
+            object.draw(graphics);
+        }
+    }
+
+    private void checkCollision() {
+        for (int i = this.objects.size() - 1; i >= 0; i--) {
+            FallingObject object = this.objects.get(i);
+            if (this.player.getBounds().intersects(object.getBounds())) {
+                if (object.isGoodObject()) {
+                    this.player.addScore(GameConfig.DEFAULT_SCORE);
+                } else {
+                    this.player.loseLife();
+                }
+                this.objects.remove(i);
+            }
+        }
     }
 
 
     @Override
-    public void keyTyped(KeyEvent event) {
+    public void keyTyped(KeyEvent event) {// כרגע לא צריך את זה
 
     }
 

@@ -18,5 +18,7 @@ public class GameConfig {
     public static final int PLAYER_HEIGHT = 16;
     public static final int PLAYER_DEFAULT_POSITION = SCREEN_HEIGHT - GRASS_HEIGHT - PLAYER_HEIGHT; //Need to check this value and modify if needed
 
+    public static final int DEFAULT_SCORE = 1;
+
 
 }

@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -26,10 +27,10 @@ public class Player {
         this.lives = 3;
         this.score = 0;
         try {
-            image = ImageIO.read(getClass().getResource("/player2.png"));
-        } catch (IOException e) {
+            image = ImageIO.read(new File("Assets/player2.png"));
+        } catch (IOException exception) {
             System.out.println("Error while try to loading player image!");
-            e.printStackTrace();
+            exception.printStackTrace();
         }
     }
 
@@ -72,10 +73,10 @@ public class Player {
     }
 
     public void updatePlayerLocation() {
-        if (this.rightPressed && this.width < GameConfig.SCREEN_WIDTH) {
+        if (this.rightPressed && (this.locationX + this.width < GameConfig.SCREEN_WIDTH)) {
             this.locationX += GameConfig.PLAYER_SPEED;
         }
-        if (this.leftPressed && this.width > 0) {
+        if (this.leftPressed && (this.locationX > 0)) {
             this.locationX -= GameConfig.PLAYER_SPEED;
         }
     }

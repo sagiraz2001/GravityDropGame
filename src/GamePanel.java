@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements KeyListener {
         this.isRunning = false;
 
         this.addKeyListener(this);
+        this.requestFocusInWindow();
     }
 
 
@@ -87,7 +88,16 @@ public class GamePanel extends JPanel implements KeyListener {
         Thread gameThread = new Thread(() -> {
             while (this.isRunning) {
                 this.player.updatePlayerLocation();
+                this.repaint();
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
+        gameThread.start();
     }
 }
+
+

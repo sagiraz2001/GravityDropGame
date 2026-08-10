@@ -19,4 +19,8 @@ public class GameConfig {
     public static final int PLAYER_DEFAULT_POSITION = SCREEN_HEIGHT - GRASS_HEIGHT - PLAYER_HEIGHT; //Need to check this value and modify if needed
 
 
+    public static final int OBJECT_SPEED = 4;
+    public static final int OBJECT_WIDTH = 15;
+    public static final int OBJECT_HEIGHT = 15;
+
 }

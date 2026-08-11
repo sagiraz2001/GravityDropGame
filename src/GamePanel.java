@@ -8,6 +8,8 @@ public class GamePanel extends JPanel implements KeyListener {
     private Player player;
     private ArrayList<FallingObject> objects;
     private boolean isRunning;
+    private UI ui;
+    private int gameState;
 
 
     public GamePanel() {
@@ -19,6 +21,7 @@ public class GamePanel extends JPanel implements KeyListener {
         this.player = new Player();
         this.objects = new ArrayList<>();
         this.isRunning = false;
+        this.ui = new UI(this.player);
 
         this.addKeyListener(this);
         this.requestFocusInWindow();
@@ -35,6 +38,7 @@ public class GamePanel extends JPanel implements KeyListener {
         for (FallingObject object : this.objects) {
             object.draw(graphics);
         }
+        this.ui.draw(graphics, this.gameState);
     }
 
     private void checkCollision() {

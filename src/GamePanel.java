@@ -10,6 +10,7 @@ public class GamePanel extends JPanel implements KeyListener {
     private boolean isRunning;
     private UI ui;
     private int gameState;
+    private int bestScore = 0;
 
 
     public GamePanel() {
@@ -38,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener {
         for (FallingObject object : this.objects) {
             object.draw(graphics);
         }
-        this.ui.draw(graphics, this.gameState);
+        this.ui.draw(graphics, this.gameState, this.bestScore);
     }
 
     private void checkCollision() {

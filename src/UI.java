@@ -58,7 +58,7 @@ public class UI {
             case GameConfig.STATE_PLAYING:
                 graphics.setFont(fontSmall);
                 graphics.setColor(Color.WHITE);
-                graphics.drawString("Score:" + this.player.getScore(), GameConfig.SCORE_LOCATION_X, GameConfig.SCORE_LOCATION_Y);
+                graphics.drawString("Score: " + this.player.getScore(), GameConfig.SCORE_LOCATION_X, GameConfig.SCORE_LOCATION_Y);
 
                 for (int i = 0; i < 3; i++) {
                     int currentX = GameConfig.HEART_START_X + (i * GameConfig.HEART_SPACING);

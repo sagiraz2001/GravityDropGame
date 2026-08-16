@@ -27,43 +27,23 @@ public class FallingObject {
         this.height = GameConfig.OBJECT_HEIGHT;
         this.speed = GameConfig.OBJECT_SPEED;
 
-        int imageNumber = random.nextInt(1, 5);
+        int imageNumber = random.nextInt(1, 9);
 
         try {
+            String folderPath = "Assets/";
             if (this.goodObject) {
-                switch (imageNumber) {
-                    case 1:
-                        this.myImage = ImageIO.read(new File("food1.png"));
-                        break;
-                    case 2:
-                        this.myImage = ImageIO.read(new File("food2.png"));
-                        break;
-                    case 3:
-                        this.myImage = ImageIO.read(new File("food3.png"));
-                        break;
-                    case 4:
-                        this.myImage = ImageIO.read(new File("food5.png"));
-                        break;
-                }
+                this.myImage = ImageIO.read(new File(folderPath + "food" + imageNumber + ".png"));
             } else {
-                switch (imageNumber) {
-                    case 1:
-                        this.myImage = ImageIO.read(new File("enemy1.png"));
-                        break;
-                    case 2:
-                        this.myImage = ImageIO.read(new File("enemy2.png"));
-                        break;
-                    case 3:
-                        this.myImage = ImageIO.read(new File("enemy3.png"));
-                        break;
-                    case 4:
-                        this.myImage = ImageIO.read(new File("enemy4.png"));
-                        break;
-                }
+                this.myImage = ImageIO.read(new File(folderPath + "enemy" + imageNumber + ".png"));
             }
-        } catch (IOException e) {
-            System.out.println("Error while try to load object image!");
+        } catch (IOException exception) {
+            System.out.println("Error while try to load object image: " + imageNumber);
         }
+
+    }
+
+    public void updateLocation() {
+        this.currentY += this.speed;
     }
 
     public void draw(Graphics graphics) {
@@ -72,15 +52,19 @@ public class FallingObject {
         }
     }
 
-    public void setCurrentY(int y) {
-        this.currentY = y;
-    }
-
     public Rectangle getBounds() {
         return new Rectangle(this.currentX, this.currentY, GameConfig.OBJECT_WIDTH, GameConfig.OBJECT_HEIGHT);
     }
 
     public boolean isGoodObject() {
         return this.goodObject;
+    }
+
+    public int getCurrentY() {
+        return this.currentY;
+    }
+
+    public void setCurrentY(int y) {
+        this.currentY = y;
     }
 }

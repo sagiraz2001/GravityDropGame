@@ -80,4 +80,20 @@ public class Player {
             this.locationX -= GameConfig.PLAYER_SPEED;
         }
     }
+
+    public void resetScore() {
+        this.score = 0;
+    }
+
+    public void resetLives() {
+        this.lives = 3;
+    }
+
+    public void resetLocation() {
+        Random random = new Random();
+        this.locationX = random.nextInt(GameConfig.SCREEN_WIDTH - GameConfig.PLAYER_WIDTH);
+        this.locationY = GameConfig.PLAYER_DEFAULT_POSITION;
+        this.width = GameConfig.PLAYER_WIDTH;
+        this.height = GameConfig.PLAYER_HEIGHT;
+    }
 }

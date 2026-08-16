@@ -58,19 +58,43 @@ public class GamePanel extends JPanel implements KeyListener {
 
 
     @Override
-    public void keyTyped(KeyEvent event) {// כרגע לא צריך את זה
-
+    public void keyTyped(KeyEvent event) {
     }
 
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
-        if (this.player != null) {
+        if (this.player != null && this.gameState == GameConfig.STATE_PLAYING) {
             if (keyCode == KeyEvent.VK_RIGHT) {
                 this.player.setRightPressed(true);
             }
-            if (keyCode == KeyEvent.VK_LEFT) {
-                this.player.setLeftPressed(true);
+            if (this.player != null && this.gameState == GameConfig.STATE_PLAYING) {
+                if (keyCode == KeyEvent.VK_LEFT) {
+                    this.player.setLeftPressed(true);
+                }
+            }
+
+        }
+        if (keyCode == KeyEvent.VK_ENTER) {
+            if (this.gameState == GameConfig.STATE_START) {
+                this.gameState = GameConfig.STATE_PLAYING;
+            } else if (this.gameState == GameConfig.STATE_GAME_OVER) {
+                if (this.player.getScore() > this.bestScore) {
+                    this.bestScore = this.player.getScore();
+                }
+                this.player.resetLives();
+                this.player.resetScore();
+                this.player.resetLocation();
+                this.objects.clear();
+                this.gameState = GameConfig.STATE_PLAYING;
+            }
+        }
+
+        if (keyCode == KeyEvent.VK_P) {
+            if (this.gameState == GameConfig.STATE_PLAYING) {
+                this.gameState = GameConfig.STATE_PAUSE;
+            } else if (this.gameState == GameConfig.STATE_PAUSE) {
+                this.gameState = GameConfig.STATE_PLAYING;
             }
         }
     }
@@ -92,7 +116,10 @@ public class GamePanel extends JPanel implements KeyListener {
         this.isRunning = true;
         Thread gameThread = new Thread(() -> {
             while (this.isRunning) {
-                this.player.updatePlayerLocation();
+                if (gameState == GameConfig.STATE_PLAYING) {
+                    this.player.updatePlayerLocation();
+                    this.update();
+                }
                 this.repaint();
                 try {
                     Thread.sleep(10);
@@ -103,6 +130,27 @@ public class GamePanel extends JPanel implements KeyListener {
         });
         gameThread.start();
     }
+
+    public void update() {
+        if (Math.random() < GameConfig.OBJECTS_SPAWN_RATE) {
+            this.objects.add(new FallingObject());
+        }
+        for (int i = this.objects.size() - 1; i >= 0; i--) {
+            FallingObject fallingObject = this.objects.get(i);
+            fallingObject.updateLocation();
+
+            if (fallingObject.getCurrentY() > GameConfig.SCREEN_HEIGHT) {
+                this.objects.remove(i);
+                continue;
+            }
+        }
+        this.checkCollision();
+        if (this.player.getLives() <= 0) {
+            this.gameState = GameConfig.STATE_GAME_OVER;
+        }
+    }
+
+
 }
 
 

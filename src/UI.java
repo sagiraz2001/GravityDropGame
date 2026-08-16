@@ -45,13 +45,19 @@ public class UI {
                 graphics.setColor(new Color(0, 0, 0, 150));
                 graphics.fillRect(0, 0, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
                 graphics.setFont(fontLarge);
-                graphics.setColor(Color.WHITE);
+                graphics.setColor(Color.BLACK);
+                graphics.drawString("Gravity Drop", GameConfig.TITLE_LOCATION_X + 4, GameConfig.TITLE_LOCATION_Y + 4);
+                graphics.setColor(Color.RED);
                 graphics.drawString("Gravity Drop", GameConfig.TITLE_LOCATION_X, GameConfig.TITLE_LOCATION_Y);
                 graphics.setFont(fontSmall);
+                graphics.setColor(Color.WHITE);
                 for (int i = 0; i < GameConfig.INSTRUCTIONS.length; i++) {
                     int currentY = GameConfig.INSTRUCTIONS_START_Y + (i * GameConfig.INSTRUCTIONS_LINE_SPACING);
                     graphics.drawString(GameConfig.INSTRUCTIONS[i], GameConfig.INSTRUCTIONS_X, currentY);
                 }
+                graphics.setColor(Color.YELLOW);
+                graphics.drawString("PRESS 'ENTER' TO START", GameConfig.START_ENTER_MSG_X, GameConfig.START_ENTER_MSG_Y);
+                graphics.setColor(Color.WHITE);
                 graphics.drawString("Best Score: " + bestScore, GameConfig.BEST_SCORE_LOCATION_X, GameConfig.BEST_SCORE_LOCATION_Y);
                 break;
 
@@ -76,18 +82,19 @@ public class UI {
                 graphics.fillRect(0, 0, GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT);
                 graphics.setFont(fontLarge);
                 graphics.setColor(Color.RED);
-                graphics.drawString("Game Over", GameConfig.TITLE_LOCATION_X, GameConfig.TITLE_LOCATION_Y);
+                graphics.drawString("Game Over!", GameConfig.GAME_OVER_TITLE_X, GameConfig.TITLE_LOCATION_Y);
                 graphics.setFont(fontSmall);
                 graphics.setColor(Color.WHITE);
                 if (this.player.getScore() > bestScore && this.player.getScore() > 0) {
-                    graphics.setColor(Color.YELLOW);
-                    graphics.drawString("NEW RECORD: " + this.player.getScore(), GameConfig.GAME_OVER_TEXT_X, GameConfig.GAME_OVER_SCORE_Y);
+                    graphics.setColor(Color.GREEN);
+                    graphics.drawString("NEW RECORD: " + this.player.getScore(), GameConfig.GAME_OVER_RECORD_X, GameConfig.GAME_OVER_SCORE_Y);
                     graphics.setColor(Color.WHITE);
                 } else {
-                    graphics.drawString("Final Score: " + this.player.getScore(), GameConfig.GAME_OVER_TEXT_X, GameConfig.GAME_OVER_SCORE_Y);
-                    graphics.drawString("Best Score: " + bestScore, GameConfig.GAME_OVER_TEXT_X, GameConfig.GAME_OVER_BEST_SCORE_Y);
+                    graphics.drawString("Final Score: " + this.player.getScore(), GameConfig.GAME_OVER_SCORE_X, GameConfig.GAME_OVER_SCORE_Y);
+                    graphics.drawString("Best Score: " + bestScore, GameConfig.GAME_OVER_BEST_SCORE_X, GameConfig.GAME_OVER_BEST_SCORE_Y);
                 }
-                graphics.drawString("Press 'ENTER' to Restart", GameConfig.GAME_OVER_TEXT_X, GameConfig.GAME_OVER_RST_MSG_Y);
+                graphics.setColor(Color.YELLOW);
+                graphics.drawString("Press 'ENTER' to Restart", GameConfig.GAME_OVER_RST_MSG_X, GameConfig.GAME_OVER_RST_MSG_Y);
 
                 break;
 

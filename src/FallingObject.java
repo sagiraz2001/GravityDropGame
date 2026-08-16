@@ -11,11 +11,6 @@ public class FallingObject {
     private int width;
     private int height;
     private int speed;
-    Thread thread = new Thread(() -> {
-        while (this.currentY <= GameConfig.SCREEN_HEIGHT) {
-            setCurrentY(this.currentY + this.speed);
-        }
-    });
     private Image myImage;
 
     public FallingObject() {
@@ -64,7 +59,4 @@ public class FallingObject {
         return this.currentY;
     }
 
-    public void setCurrentY(int y) {
-        this.currentY = y;
-    }
 }

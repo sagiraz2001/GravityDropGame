@@ -64,14 +64,20 @@ public class Player {
         return this.lives <= 0;
     }
 
+    // Updates the flag when the right arrow key is pressed or released
     public void setRightPressed(boolean pressed) {
         this.rightPressed = pressed;
     }
 
+    // Updates the flag when the right arrow key is pressed or released
     public void setLeftPressed(boolean pressed) {
         this.leftPressed = pressed;
     }
 
+    /**
+     * Updates the player X locations according to the current keyboard input.
+     * Prevent the player from moving out of the screen bounds.
+     */
     public void updatePlayerLocation() {
         if (this.rightPressed && (this.locationX + this.width < GameConfig.SCREEN_WIDTH)) {
             this.locationX += GameConfig.PLAYER_SPEED;

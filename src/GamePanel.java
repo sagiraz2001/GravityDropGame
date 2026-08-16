@@ -12,7 +12,10 @@ public class GamePanel extends JPanel implements KeyListener {
     private int gameState;
     private int bestScore = 0;
 
-
+    /**
+     * GamePanel Constructor: Initializes screen settings,
+     * registers keyboard inputs, and starts the game loop.
+     */
     public GamePanel() {
         this.setPreferredSize(new Dimension(GameConfig.SCREEN_WIDTH, GameConfig.SCREEN_HEIGHT));
         this.setBackground(GameConfig.SKY_COLOR);
@@ -28,7 +31,10 @@ public class GamePanel extends JPanel implements KeyListener {
         this.requestFocusInWindow();
     }
 
-
+    /**
+     * Updates the screen graphics. Draws everything layer by layer:
+     * Background first, then player and objects, and UI last so it stays on top.
+     */
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         graphics.setColor(GameConfig.GRASS_COLOR);
@@ -42,6 +48,11 @@ public class GamePanel extends JPanel implements KeyListener {
         this.ui.draw(graphics, this.gameState, this.bestScore);
     }
 
+    /**
+     * Checks if the player touched any falling object.
+     * If hit, updates the score or lives and removes the object.
+     * We loop backwards to safely remove objects without causing errors.
+     */
     private void checkCollision() {
         for (int i = this.objects.size() - 1; i >= 0; i--) {
             FallingObject object = this.objects.get(i);
@@ -61,6 +72,10 @@ public class GamePanel extends JPanel implements KeyListener {
     public void keyTyped(KeyEvent event) {
     }
 
+    /**
+     * Handles keyboard input when a key is pressed down.
+     * Updates movement flags for smooth control and manages game states.
+     */
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
@@ -73,8 +88,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     this.player.setLeftPressed(true);
                 }
             }
-
         }
+
         if (keyCode == KeyEvent.VK_ENTER) {
             if (this.gameState == GameConfig.STATE_START) {
                 this.gameState = GameConfig.STATE_PLAYING;
@@ -112,7 +127,12 @@ public class GamePanel extends JPanel implements KeyListener {
         }
     }
 
-    public void startGame() {//עדיין לא סיימתי - צריך להמשיך פה את הלולאה הראשית של המשחק
+    /**
+     * Starts the main game loop in a separate thread.
+     * Runs while the game is running, updating logic when playing,
+     * repainting the screen, and sleeping briefly to control the frame rate.
+     */
+    public void startGame() {
         this.isRunning = true;
         Thread gameThread = new Thread(() -> {
             while (this.isRunning) {
@@ -120,7 +140,9 @@ public class GamePanel extends JPanel implements KeyListener {
                     this.player.updatePlayerLocation();
                     this.update();
                 }
+                // Request the system to redraw the screen
                 this.repaint();
+                // A short pause to control game speed and prevent CPU overload
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException exception) {
@@ -131,7 +153,16 @@ public class GamePanel extends JPanel implements KeyListener {
         gameThread.start();
     }
 
+    /**
+     * Handles the core game logic per frame.
+     * Spawns new falling objects, updates their positions, removes out-of-bounds items,
+     * checks for collisions, and triggers Game Over if lives drop to zero.
+     */
     public void update() {
+        // Decides whether to spawn a new falling object based on a random chance per frame
+        if (Math.random() < GameConfig.OBJECTS_SPAWN_RATE) {
+            this.objects.add(new FallingObject());
+        }
         if (Math.random() < GameConfig.OBJECTS_SPAWN_RATE) {
             this.objects.add(new FallingObject());
         }

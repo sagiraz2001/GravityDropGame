@@ -51,13 +51,17 @@ public class GameConfig {
             "You have 3 lives. Try to beat the Best Score!",
             "Controls: Use Left/Right arrows to move.",
             "Press 'P' at any time to pause or resume the game.",
-            "",
-            "PRESS 'ENTER' TO START"
     };
+    public static final int START_ENTER_MSG_X = (int) (GameConfig.SCREEN_WIDTH * 0.32);
+    public static final int START_ENTER_MSG_Y = (int) (GameConfig.SCREEN_HEIGHT * 0.75);
 
-    public static final int GAME_OVER_TEXT_X = (int) (GameConfig.SCREEN_WIDTH * 0.35);
+    public static final int GAME_OVER_TITLE_X = (int) (GameConfig.SCREEN_WIDTH * 0.275);
+    public static final int GAME_OVER_RECORD_X = (int) (GameConfig.SCREEN_WIDTH * 0.38);
+    public static final int GAME_OVER_SCORE_X = (int) (GameConfig.SCREEN_WIDTH * 0.425);
     public static final int GAME_OVER_SCORE_Y = (int) (GameConfig.SCREEN_HEIGHT * 0.50);
+    public static final int GAME_OVER_BEST_SCORE_X = (int) (GameConfig.SCREEN_WIDTH * 0.425);
     public static final int GAME_OVER_BEST_SCORE_Y = (int) (GameConfig.SCREEN_HEIGHT * 0.58);
+    public static final int GAME_OVER_RST_MSG_X = (int) (GameConfig.SCREEN_WIDTH * 0.35);
     public static final int GAME_OVER_RST_MSG_Y = (int) (GameConfig.SCREEN_HEIGHT * 0.75);
 
     public static final double OBJECTS_SPAWN_RATE = 0.015;

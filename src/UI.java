@@ -13,6 +13,7 @@ public class UI {
 
 
     public UI(Player player) {
+        //Attempting to load a pixelated font, if there is an error loading, a default font will be loaded.
         try {
             Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File(("Assets/Pixel_Font2.ttf")));
             this.fontSmall = pixelFont.deriveFont(Font.PLAIN, GameConfig.SMALL_FONT_SIZE);
@@ -101,7 +102,7 @@ public class UI {
             case GameConfig.STATE_PAUSE:
                 graphics.setFont(fontSmall);
                 graphics.setColor(Color.WHITE);
-                graphics.drawString("Score:" + this.player.getScore(), GameConfig.SCORE_LOCATION_X, GameConfig.SCORE_LOCATION_Y);
+                graphics.drawString("Score: " + this.player.getScore(), GameConfig.SCORE_LOCATION_X, GameConfig.SCORE_LOCATION_Y);
 
                 for (int i = 0; i < 3; i++) {
                     int currentX = GameConfig.HEART_START_X + (i * GameConfig.HEART_SPACING);

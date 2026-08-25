@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements KeyListener {
      * Background first, then player and objects, and UI last so it stays on top.
      */
     public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
+        super.paintComponent(graphics); //Erase the previous frame and draw a new one
         graphics.setColor(GameConfig.GRASS_COLOR);
         graphics.fillRect(0, GameConfig.SCREEN_HEIGHT - GameConfig.GRASS_HEIGHT, GameConfig.SCREEN_WIDTH, GameConfig.GRASS_HEIGHT);
         if (this.player != null) {
@@ -83,10 +83,8 @@ public class GamePanel extends JPanel implements KeyListener {
             if (keyCode == KeyEvent.VK_RIGHT) {
                 this.player.setRightPressed(true);
             }
-            if (this.player != null && this.gameState == GameConfig.STATE_PLAYING) {
-                if (keyCode == KeyEvent.VK_LEFT) {
-                    this.player.setLeftPressed(true);
-                }
+            if (keyCode == KeyEvent.VK_LEFT) {
+                this.player.setLeftPressed(true);
             }
         }
 
@@ -160,10 +158,9 @@ public class GamePanel extends JPanel implements KeyListener {
      */
     public void update() {
         // Decides whether to spawn a new falling object based on a random chance per frame
-        if (Math.random() < GameConfig.OBJECTS_SPAWN_RATE) {
-            this.objects.add(new FallingObject());
-        }
-        if (Math.random() < GameConfig.OBJECTS_SPAWN_RATE) {
+        // For every point the player gets, the chances of more objects falling increases and the difficulty increases.
+        double currentSpawnRate = GameConfig.OBJECTS_SPAWN_RATE + (this.player.getScore() * 0.001);
+        if (Math.random() < currentSpawnRate) {
             this.objects.add(new FallingObject());
         }
         for (int i = this.objects.size() - 1; i >= 0; i--) {
@@ -172,11 +169,10 @@ public class GamePanel extends JPanel implements KeyListener {
 
             if (fallingObject.getCurrentY() > GameConfig.SCREEN_HEIGHT) {
                 this.objects.remove(i);
-                continue;
             }
         }
         this.checkCollision();
-        if (this.player.getLives() <= 0) {
+        if (this.player.isDead()) {
             this.gameState = GameConfig.STATE_GAME_OVER;
         }
     }

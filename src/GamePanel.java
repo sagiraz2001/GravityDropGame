@@ -133,6 +133,7 @@ public class GamePanel extends JPanel implements KeyListener {
     public void startGame() {
         this.isRunning = true;
         Thread gameThread = new Thread(() -> {
+            // If the game is not running (Paused) - the update will stop and the screen will be "frozen"
             while (this.isRunning) {
                 if (gameState == GameConfig.STATE_PLAYING) {
                     this.player.updatePlayerLocation();
